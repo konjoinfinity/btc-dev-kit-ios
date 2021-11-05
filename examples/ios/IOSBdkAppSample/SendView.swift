@@ -10,6 +10,10 @@ import Combine
 import CodeScanner
 
 struct SendView: View {
+    func handleScan(result: Result<String, CodeScannerView.ScanError>) {
+       self.isShowingScanner = false
+       // more code to come
+    }
     @State private var isShowingScanner = false
     var onSend : (String, UInt64) -> ()
     @Environment(\.presentationMode) var presentationMode
@@ -36,11 +40,11 @@ struct SendView: View {
                     presentationMode.wrappedValue.dismiss()
                 }.disabled(to == "" || (Double(amount) ?? 0) == 0)
                 Spacer()
-//                Button(action: self.isShowingScanner = true) {
-//                    Text("Sign In")
-//                }
             }
         }.navigationBarTitle("Send")
+        Button(action: {self.isShowingScanner = true}) {
+            Text("Scan Wallet Address").padding(30)
+        }
     }
 }
 
